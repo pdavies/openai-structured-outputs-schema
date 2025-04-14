@@ -3,7 +3,7 @@ import Ajv from "ajv/dist/2019";
 import * as fs from "fs";
 import * as path from "path";
 
-const SCHEMA_URI = "https://example.com/OPENAI/2019-09/schema";
+const SCHEMA_URI = "https://pdavies.co.uk/openai-structured-outputs-schema/2019-09/schema";
 
 // Helper function to read and parse JSON files
 function loadJsonFile(filePath: string) {
@@ -24,8 +24,8 @@ function getJsonFiles(dirPath: string): string[] {
 describe("OpenAI JSON Schema Validation", () => {
   const ajv = new Ajv({ strict: true });
 
-  ajv.addMetaSchema(loadJsonFile("./openai-2019-09/innerSchema"));
-  ajv.addMetaSchema(loadJsonFile("./openai-2019-09/schema"));
+  ajv.addMetaSchema(loadJsonFile("./2019-09/innerSchema"));
+  ajv.addMetaSchema(loadJsonFile("./2019-09/schema"));
 
   // Test valid schemas
   const validSchemas = getJsonFiles("tests/fixtures/valid");

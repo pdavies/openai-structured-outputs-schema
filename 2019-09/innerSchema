@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2019-09/schema",
-  "$id": "https://example.com/OPENAI/2019-09/innerSchema",
+  "$id": "https://pdavies.co.uk/openai-structured-outputs-schema/2019-09/innerSchema",
   "$vocabulary": {
     "https://json-schema.org/draft/2019-09/vocab/core": true,
     "https://json-schema.org/draft/2019-09/vocab/applicator": true,
