@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "https://example.com/OPENAI/2019-09/innerSchema",
+  "$vocabulary": {
+    "https://json-schema.org/draft/2019-09/vocab/core": true,
+    "https://json-schema.org/draft/2019-09/vocab/applicator": true,
+    "https://json-schema.org/draft/2019-09/vocab/validation": true,
+    "https://json-schema.org/draft/2019-09/vocab/meta-data": true,
+    "https://json-schema.org/draft/2019-09/vocab/format": false,
+    "https://json-schema.org/draft/2019-09/vocab/content": true
+  },
+  "$recursiveAnchor": true,
+
+  "title": "OpenAI Structured Outputs inner schema (for non-root objects)",
+  "allOf": [
+    {"$ref": "https://json-schema.org/draft/2019-09/schema"},
+    {
+      "if": {
+        "type": "object",
+        "properties": {"type": {"const": "object"}},
+        "required": ["type"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "additionalProperties": {
+            "$comment": "https://platform.openai.com/docs/guides/structured-outputs?api-mode=chat#additionalproperties-false-must-always-be-set-in-objects",
+            "const": false
+          },
+          "required": {
+            "$comment": "All fields are required. This can't easily (at all?) be verified by metaschema, but we can at least require `required` to exist and be a nonempty array. https://platform.openai.com/docs/guides/structured-outputs#all-fields-must-be-required",
+            "type": "array",
+            "minItems": 1
+          }
+        },
+        "required": ["additionalProperties", "required"]
+      }
+    },
+    {
+      "not": {
+        "$comment": "https://platform.openai.com/docs/guides/structured-outputs#some-type-specific-keywords-are-not-yet-supported",
+        "anyOf": [
+          {"type": "object", "properties": {"minLength": {}}, "required": ["minLength"]},
+          {"type": "object", "properties": {"maxLength": {}}, "required": ["maxLength"]},
+          {"type": "object", "properties": {"pattern": {}}, "required": ["pattern"]},
+          {"type": "object", "properties": {"format": {}}, "required": ["format"]},
+
+          {"type": "object", "properties": {"minimum": {}}, "required": ["minimum"]},
+          {"type": "object", "properties": {"maximum": {}}, "required": ["maximum"]},
+          {"type": "object", "properties": {"multipleOf": {}}, "required": ["multipleOf"]},
+
+          {"type": "object", "properties": {"patternProperties": {}}, "required": ["patternProperties"]},
+          {"type": "object", "properties": {"unevaluatedProperties": {}}, "required": ["unevaluatedProperties"]},
+          {"type": "object", "properties": {"propertyNames": {}}, "required": ["propertyNames"]},
+          {"type": "object", "properties": {"minProperties": {}}, "required": ["minProperties"]},
+          {"type": "object", "properties": {"maxProperties": {}}, "required": ["maxProperties"]},
+
+          {"type": "object", "properties": {"unevaluatedItems": {}}, "required": ["unevaluatedItems"]},
+          {"type": "object", "properties": {"contains": {}}, "required": ["contains"]},
+          {"type": "object", "properties": {"minContains": {}}, "required": ["minContains"]},
+          {"type": "object", "properties": {"maxContains": {}}, "required": ["maxContains"]},
+          {"type": "object", "properties": {"minItems": {}}, "required": ["minItems"]},
+          {"type": "object", "properties": {"maxItems": {}}, "required": ["maxItems"]},
+          {"type": "object", "properties": {"uniqueItems": {}}, "required": ["uniqueItems"]}
+        ]
+      }
+    }
+  ]
+}

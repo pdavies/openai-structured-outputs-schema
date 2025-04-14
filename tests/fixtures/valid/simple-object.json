@@ -1,0 +1,21 @@
+{
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "age": {
+        "type": "integer"
+      },
+      "someObject": {
+        "type": "object",
+        "properties": {
+          "foo": { "type": "string" }
+        },
+        "required": ["foo"],
+        "additionalProperties": false
+      }
+    },
+    "required": ["name", "age"],
+    "additionalProperties": false
+  }

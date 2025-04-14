@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "https://example.com/OPENAI/2019-09/schema",
+
+  "title": "OpenAI Structured Outputs metaschema",
+  "allOf": [
+    {"$ref": "innerSchema"},
+    {
+      "$comment": "https://platform.openai.com/docs/guides/structured-outputs?api-mode=chat#root-objects-must-not-be-anyof",
+      "not": {"type": "object", "properties": {"anyOf": {}}, "required": ["anyOf"]}
+    }
+  ]
+}
